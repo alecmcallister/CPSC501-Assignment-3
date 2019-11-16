@@ -5,9 +5,11 @@ public class Main {
 
 	public static void main(String[] args) {
 
-//		Document doc = Serializer.serialize(ObjectCreator.CreateSampleObject());
-
-		GetUserInput();
+		Document doc = Serializer.serialize(ObjectCreator.CreateSampleObject());
+		
+		System.out.println(Serializer.GetXMLStringFromDocument(doc));
+		
+//		GetUserInput();
 	}
 
 	public static void GetUserInput() {
