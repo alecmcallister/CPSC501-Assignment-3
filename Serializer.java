@@ -1,10 +1,6 @@
 import org.jdom.*;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.*;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 
@@ -15,14 +11,12 @@ public class Serializer {
 		Document doc = new Document(serialized);
 		doc.setRootElement(serialized);
 
-		GetJDOMElement(doc, obj);
-
-		// doc.getRootElement().addContent(objElement);
+		AddJDOMElementToDoc(doc, obj);
 
 		return doc;
 	}
 
-	public static void GetJDOMElement(Document doc, Object obj) {
+	public static void AddJDOMElementToDoc(Document doc, Object obj) {
 		Element objElement = new Element("object");
 
 		objElement.setAttribute("class", obj.getClass().getName());
@@ -102,7 +96,7 @@ public class Serializer {
 		doc.getRootElement().addContent(objElement);
 
 		for (Object o : refObjects) {
-			GetJDOMElement(doc, o);
+			AddJDOMElementToDoc(doc, o);
 		}
 	}
 

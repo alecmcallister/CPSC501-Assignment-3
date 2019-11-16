@@ -5,7 +5,8 @@ import Objects.*;
 public class ObjectCreator {
 
 	public static Object CreateSampleObject() {
-		return new Object[] { new SimpleObject(), new SimpleObject(123, 56.75f) };
+		return new SimpleObject();
+//		return new Object[] { new SimpleObject(), new SimpleObject(123, 56.75f) };
 	}
 
 	public static Object CreateSimpleObject() {
