@@ -15,7 +15,7 @@ public class Main {
 		
 		System.out.println(Serializer.GetXMLStringFromDocument(doc));
 		
-		Object deserialized = Deserializer.deserialize(doc);
+		Object deserialized = Deserializer.deserialize(Deserializer.GetJDOMDocumentFromXMLString(Serializer.GetXMLStringFromDocument(doc)));
 
 		if (deserialized.getClass().isArray()) {
 			for (int i = 0; i < Array.getLength(deserialized); i++) {

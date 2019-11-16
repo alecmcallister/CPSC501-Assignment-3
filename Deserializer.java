@@ -4,7 +4,9 @@ import org.jdom.input.*;
 import Objects.*;
 
 import java.util.List;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class Deserializer {
 		Document doc = null;
 
 		try {
-			doc = (Document) builder.build(xml);
+			doc = (Document) builder.build(new ByteArrayInputStream(xml.getBytes("UTF-8")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
