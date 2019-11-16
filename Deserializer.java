@@ -52,7 +52,7 @@ public class Deserializer {
 
 				} else {
 					int arraySize = Integer.parseInt(objElement.getAttributeValue("length"));
-					newObj = Array.newInstance(objClass, arraySize);
+					newObj = Array.newInstance(objClass.getComponentType(), arraySize);
 				}
 
 				result[i] = newObj;
@@ -67,20 +67,13 @@ public class Deserializer {
 				if (newObj.getClass().isArray()) {
 					int arraySize = Integer.parseInt(objElement.getAttributeValue("length"));
 
-					Object arrayObj = Array.newInstance(objClass.getComponentType(), arraySize);
-
 					for (int k = 0; k < arraySize; k++) {
-//							Array.set(arrayObj, k, ConvertStringToPrimitive(f, ((Element)(fieldElement.getChildren().get(k))).getValue()));
 
 						Object val = ConvertStringToPrimitive(newObj.getClass().getComponentType(),
 								((Element) (objElement.getChildren().get(k))).getValue());
 
-						Array.set(arrayObj, k, 111111);
-
+						Array.set(newObj, k, val);
 					}
-
-					newObj = arrayObj;
-
 				}
 
 				for (int j = 0; j < fieldList.size(); j++) {
@@ -95,23 +88,17 @@ public class Deserializer {
 
 							String value = fieldElement.getChild("value").getValue();
 
-//							SetField(newObj, f, value);
 							f.set(newObj, ConvertStringToPrimitive(f.getType(), value));
 
 						} else if (f.getType().isArray()) {
 
 							int arraySize = fieldElement.getChildren("reference").size();
 
-							Object arrayObj = Array.newInstance(f.getType().getComponentType(), arraySize);
-
 							for (int k = 0; k < arraySize; k++) {
-								// populate array here.
-
-								Array.set(arrayObj, k, map.get(Integer.parseInt(
-										((Element) fieldElement.getChildren("reference").get(k)).getValue())));
+								int reference = Integer
+										.parseInt(((Element) fieldElement.getChildren("reference").get(k)).getValue());
+								f.set(newObj, map.get(reference));
 							}
-
-							f.set(newObj, arrayObj);
 
 						} else {
 
@@ -146,20 +133,6 @@ public class Deserializer {
 		}
 
 		return result;
-	}
-
-	static void SetField(Object obj, Field f, String value)
-			throws NumberFormatException, IllegalArgumentException, IllegalAccessException {
-
-		if (int.class.isAssignableFrom(f.getType())) {
-			f.set(obj, Integer.parseInt(value));
-		} else if (float.class.isAssignableFrom(f.getType())) {
-			f.set(obj, Float.parseFloat(value));
-		} else if (boolean.class.isAssignableFrom(f.getType())) {
-			f.set(obj, Boolean.parseBoolean(value));
-		} else {
-			f.set(obj, value);
-		}
 	}
 
 }
