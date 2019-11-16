@@ -1,4 +1,6 @@
 import org.jdom.*;
+
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class Main {
@@ -6,9 +8,25 @@ public class Main {
 	public static void main(String[] args) {
 
 		Document doc = Serializer.serialize(ObjectCreator.CreateSampleObject());
-		
+
+		Object deserialized = Deserializer.deserialize(doc);
+
+		if (deserialized.getClass().isArray()) {
+			for (int i = 0; i < Array.getLength(deserialized); i++) {
+
+				new Inspector().inspect(Array.get(deserialized, i), true);
+				
+			}
+		}
+
+		//new Inspector().inspect(deserialized, true);
+
+		// new Inspector().inspect(ObjectCreator.CreateSampleObject(), true);
+
 		System.out.println(Serializer.GetXMLStringFromDocument(doc));
-		
+
+		// new Inspector().inspect(ObjectCreator.CreateSampleObject(), true);
+
 //		GetUserInput();
 	}
 
@@ -18,7 +36,7 @@ public class Main {
 				"Enter Object number to create:\n\t1: Simple object\n\t2: Object with references\nEnter -1 to complete initialization.");
 
 		String userInput;
-		
+
 		while (!(userInput = myObj.nextLine()).equals("-1")) {
 
 			if (userInput.equals("1")) {

@@ -5,7 +5,7 @@ import Objects.*;
 public class ObjectCreator {
 
 	public static Object CreateSampleObject() {
-		return new SimpleObject();
+		return new ObjectWithReferences(new SimpleObject(126, 56.46f), new SimpleObject(5555, 2.343434f));
 //		return new Object[] { new SimpleObject(), new SimpleObject(123, 56.75f) };
 	}
 

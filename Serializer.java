@@ -30,7 +30,7 @@ public class Serializer {
 			field.setAttribute("name", f.getName());
 			field.setAttribute("declaringClass", obj.getClass().getName());
 
-			if (f.getType().isPrimitive()) {
+			if (f.getType().isPrimitive() || f.getType() == String.class) {
 
 				Element primValue = new Element("value");
 
@@ -85,7 +85,7 @@ public class Serializer {
 					Element refValue = new Element("reference");
 
 					refValue.setText(Integer.toString(o.hashCode()));
-					
+
 					objElement.addContent(refValue);
 					refObjects.add(o);
 				}
@@ -93,11 +93,12 @@ public class Serializer {
 			}
 		}
 
-		doc.getRootElement().addContent(objElement);
-
 		for (Object o : refObjects) {
 			AddJDOMElementToDoc(doc, o);
+
 		}
+		
+		doc.getRootElement().addContent(objElement);
 	}
 
 	public static String GetXMLStringFromDocument(Document doc) {

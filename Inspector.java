@@ -4,6 +4,8 @@ import java.lang.reflect.*;
 public class Inspector {
 
 	public void inspect(Object obj, boolean recursive) {
+		if (obj == null)
+			return;
 		println("");
 		inspectClass(new InspectObj(obj.getClass(), obj, recursive, 0));
 	}
