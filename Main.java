@@ -1,7 +1,5 @@
 import org.jdom.*;
-
 import Objects.*;
-
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +21,7 @@ public class Main {
 			}
 		}
 	}
-
+	
 	public static Object GetUserInput() {
 		ArrayList<Object> result = new ArrayList<Object>();
 		
